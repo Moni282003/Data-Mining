@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Disorder Prediction Result</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+   
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Sleep Disorder Prediction Result</h1>
+        <div class="resultContainer">
+            <p class="Predict"><strong>Prediction Result:</strong> {{ result }}</p>
+            <button class="chartButton" onclick="toggleChart('accuracyChart')">Toggle Accuracy Chart</button>
+            <button class="chartButton" onclick="toggleChart('precisionChart')">Toggle Precision Chart</button>
+            <button class="chartButton" onclick="toggleChart('recallChart')">Toggle Recall Chart</button>
+            <div id="chartsContainer">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            var accuracy = {{ accuracy }};
+            var precision = {{ precision }};
+            var recall = {{ recall }};
+
+            var dataAccuracy = google.visualization.arrayToDataTable([
+                ['Metric', 'Value'],
+                ['Accuracy', accuracy],
+                ['No Accuracy', 1 - accuracy]
+            ]);
+
+            var dataPrecision = google.visualization.arrayToDataTable([
+                ['Metric', 'Value'],
+                ['Precision', precision],
+                ['No Precision', 1 - precision]
+            ]);
+
+            var dataRecall = google.visualization.arrayToDataTable([
+                ['Metric', 'Value'],
+                ['Recall', recall],
+                ['No Recall', 1 - recall]
+            ]);
+
+            var options = {
+                title: 'Metrics',
+                pieHole: 0.4,
+            };
+
+            var accuracyChart = new google.visualization.PieChart(document.getElementById('accuracyChart'));
+            accuracyChart.draw(dataAccuracy, options);
+
+            var precisionChart = new google.visualization.PieChart(document.getElementById('precisionChart'));
+            precisionChart.draw(dataPrecision, options);
+
+            var recallChart = new google.visualization.PieChart(document.getElementById('recallChart'));
+            recallChart.draw(dataRecall, options);
+
+            accuracyChart.container.style.display = 'none';
+            precisionChart.container.style.display = 'none';
+            recallChart.container.style.display = 'none';
+        }
+
+        function toggleChart(chartId) {
+            var chart = document.getElementById(chartId);
+            chart.style.display = chart.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+
+    <div id="accuracyChart"></div>
+    <div id="precisionChart"></div>
+    <div id="recallChart"></div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Disorder Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Sleep Disorder Prediction</h1>
+        <form id="predictionForm" action="/predict" method="post"> <!-- Specify action and method for form submission -->
+            <div class="inputContainer">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="inputContainer">
+                <label for="sleepDuration">Sleep Duration (hours):</label>
+                <input type="number" id="sleepDuration" name="sleepDuration" min="0" max="24" required>
+            </div>
+            <div class="inputContainer">
+                <label for="qualityOfSleep">Quality of Sleep (0-10):</label>
+                <input type="number" id="qualityOfSleep" name="qualityOfSleep" min="0" max="10" required>
+            </div>
+            <div class="inputContainer">
+                <label for="physicalActivityLevel">Physical Activity Level (0-100):</label>
+                <input type="number" id="physicalActivityLevel" name="physicalActivityLevel" min="0" max="100" required>
+            </div>
+            <div class="inputContainer">
+                <label for="stressLevel">Stress Level (0-10):</label>
+                <input type="number" id="stressLevel" name="stressLevel" min="0" max="10" required>
+            </div>
+            <!-- Rearranged input fields -->
+            <div class="inputContainer">
+                <label for="systolic">Systolic Pressure (mmHg):</label>
+                <input type="number" id="systolic" name="systolic" min="0" required>
+            </div>
+            <div class="inputContainer">
+                <label for="diastolic">Diastolic Pressure (mmHg):</label>
+                <input type="number" id="diastolic" name="diastolic" min="0" required>
+            </div>
+            <div class="inputContainer">
+                <label for="heartRate">Heart Rate (bpm):</label>
+                <input type="number" id="heartRate" name="heartRate" min="0" required>
+            </div>
+            <div class="inputContainer">
+                <label for="dailySteps">Daily Steps:</label>
+                <input type="number" id="dailySteps" name="dailySteps" min="0" required>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+</body>
+</html>
